@@ -18,6 +18,31 @@ public class HomeController : Controller
         return View();
     }
 
+    public ViewResult RsvpForm()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public ViewResult RsvpForm(GuestResponse guestResponse)
+    {
+        if (ModelState.IsValid)
+        {
+            Repository.AddResponse(guestResponse);
+            return View("Thanks", guestResponse);
+        }
+        else
+        {
+            return View(guestResponse);
+        }
+
+    }
+
+    public ViewResult ListResponses()
+    {
+        return View(Repository.Responses.Where(x => x.WillAttend == true));
+    }
+
     public IActionResult Privacy()
     {
         return View();
