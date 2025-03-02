@@ -45,4 +45,16 @@ public static class MyExtensionMethods
         }
         return total;
     }
+
+    public static IEnumerable<Product?> FilterByPrice(
+        this IEnumerable<Product?> products, decimal minimumPrice)
+    {
+        foreach (Product? item in products)
+        {
+            if ((item?.Price ?? 0) >= minimumPrice)
+            {
+                yield return item;
+            }
+        }
+    }
 }
