@@ -21,17 +21,21 @@ public class Product
 }
 
 
-public class ShoppingCart : IEnumerable<Product?>
+public interface IProductSelection
 {
-    public IEnumerable<Product?>? Products { get; set;}
+    IEnumerable<Product>? Products { get; }
+    IEnumerable<string>? Names => Products?.Select(x => x.Name);
+}
 
-    public IEnumerator<Product?> GetEnumerator() => Products?.GetEnumerator() 
-        ?? Enumerable.Empty<Product?>().GetEnumerator();
+public class ShoppingCart : IProductSelection
+{
+    private List<Product> products = new();
 
-    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+    public ShoppingCart(params Product[] prods)
     {
-        return GetEnumerator();
+        products.AddRange(prods);
     }
+    public IEnumerable<Product>? Products { get => products; }
 }
 
 public static class MyExtensionMethods
