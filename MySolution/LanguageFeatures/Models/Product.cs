@@ -20,7 +20,23 @@ public class Product
 	}
 }
 
-
+public class MyAsyncMethods
+{
+    public static async IAsyncEnumerable<long?> GetPageLenght(
+        List<string> output, params string[] urls)
+    {
+        List<long?> result = new List<long?>();
+        HttpClient client = new HttpClient();
+        foreach(string url in urls)
+        {
+            output.Add($"Staretd request for {url}");
+            var httpMessage = await client.GetAsync($"http://{url}");
+            //result.Add(httpMessage.Content.Headers.ContentLength);
+            output.Add(url);
+            yield return httpMessage.Content.Headers.ContentLength;
+        }
+    }
+}
 public interface IProductSelection
 {
     IEnumerable<Product>? Products { get; }
