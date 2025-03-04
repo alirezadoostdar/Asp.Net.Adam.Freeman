@@ -78,3 +78,21 @@ public static class MyExtensionMethods
         }
     }
 }
+
+public class UserService
+{
+    private readonly ApplicationDbContext _context;
+    public UserService(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    // Fetch users asynchronously using IAsyncEnumerable<T>
+    public async IAsyncEnumerable<User> GetUsersAsync()
+    {
+        await foreach (var user in _context.Users.AsAsyncEnumerable())
+        {
+            yield return user;
+        }
+    }
+}
