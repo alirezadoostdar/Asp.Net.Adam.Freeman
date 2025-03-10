@@ -19,7 +19,7 @@ public class ProductTests
         p.Name = "New Name";
 
         //Assert
-        Assert.Equal("Test", p.Name);
+        Assert.Equal("New Name", p.Name);
     }
 
     [Fact]
@@ -32,6 +32,6 @@ public class ProductTests
         p.Price = 200M;
 
         //Assert
-        Assert.Equal(100M, p.Price);
+        Assert.Equal(200M, p.Price);
     }
 }

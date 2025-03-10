@@ -5,8 +5,9 @@ namespace SimpleApp.Controllers;
 
 public class HomeController : Controller
 {
+    public IDataSource datasource = new ProductDataSource();
     public ViewResult Index()
     {
-        return View(Product.GetProducts());
+        return View(datasource.Products);
     }
 }
